@@ -1,9 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, SubmitField
-from wtforms import StringField, SelectField, SubmitField, FloatField
+from wtforms import StringField, DateField, SelectField, SubmitField, FloatField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Length, URL
-from grocery_app.models import GroceryStore
+from grocery_app.models import GroceryStore, GroceryItem, ItemCategory
 
 class GroceryStoreForm(FlaskForm):
     """Form for adding/updating a GroceryStore."""
