@@ -37,5 +37,4 @@ class GroceryItem(db.Model):
     def __repr__(self):
       return f'{self.name}, price: {self.price}'
 
-
     
