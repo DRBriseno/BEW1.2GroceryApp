@@ -19,6 +19,9 @@ class GroceryStore(db.Model):
     address = db.Column(db.String(200), nullable=False)
     items = db.relationship('GroceryItem', back_populates='store')
 
+    def __repr__(self):
+      return f'{self.title}, address: {self.address}'
+
 class GroceryItem(db.Model):
     """Grocery Item model."""
     id = db.Column(db.Integer, primary_key=True)
@@ -28,4 +31,11 @@ class GroceryItem(db.Model):
     photo_url = db.Column(URLType)
     store_id = db.Column(
         db.Integer, db.ForeignKey('grocery_store.id'), nullable=False)
+    store = db.relationship('GroceryStore', back_populates='items') 
     store = db.relationship('GroceryStore', back_populates='items')
+
+    def __repr__(self):
+      return f'{self.name}, price: {self.price}'
+
+
+    
