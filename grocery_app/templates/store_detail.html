@@ -3,7 +3,8 @@
 
 <h1>Store - {{ store.title }}</h1>
 
-<strong>Address:</strong> {{ store.address }}
+<h3>Address: <span style="font-weight: 100;">{{ store.address }}</span></h3> 
+<h3>Created By: <span style="font-weight: 100;">{{ created_by_user.username }}</span></h3>
 
 <h2>Items</h2>
 
@@ -16,22 +17,22 @@
     </div>
     {% endfor %}
 </div>
-
-
 <h2>Edit Store</h2>
-
-<form>
+<form method="POST" action="{{ url_for('main.store_detail', store_id=store.id) }}">
+    {{ form.csrf_token }}
     <fieldset>
         <legend>Please enter your information:</legend>
-
-
-
-        <!-- TODO: Remove the next paragraph and use the `form` object passed in 
-            from the route to render a form. -->
-        <p><em>Form fields go here!</em></p>
-
-        <input type="submit" value="Submit">
+        {{ form.title.label }}
+        {{ form.title }}
+        {% for error in form.title.errors %}
+        <li style="color: red">{{ error }}</li>
+        {% endfor %}
+        {{ form.address.label }}
+        {{ form.address }}
+        {% for error in form.address.errors %}
+        <li style="color: red">{{ error }}</li>
+        {% endfor %}
+        {{ form.submit }}
     </fieldset>
 </form>
-
 {% endblock %}
