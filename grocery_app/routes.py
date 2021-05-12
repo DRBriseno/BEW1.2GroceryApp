@@ -7,13 +7,10 @@ from grocery_app.forms import GroceryStoreForm, GroceryItemForm
 from grocery_app.models import GroceryStore, GroceryItem, User 
 from grocery_app.forms import GroceryStoreForm, GroceryItemForm, LoginForm, SignUpForm
 
-# Import app and db from events_app package so that we can run app
 
-from grocery_app import app, db
-import bcrypt
+from grocery_app import app, db, bcrypt
 
-main = Blueprint("main", __name__)
-auth = Blueprint("auth", __name__)
+
 
 ##########################################
 #           Routes                       #
@@ -55,10 +52,14 @@ auth = Blueprint("auth", __name__)
 # - redirect the user to the item detail page.
 
 # TODO: Send the form to the template and use it to render the form fields
-   
+
+
+auth = Blueprint("auth", __name__)
+
+
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-    print('in signup')
+    print('Print SignUp')
     form = SignUpForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -85,6 +86,10 @@ def login():
             login_user(user, remember=True)
             next_page = request.args.get('next')
             return redirect(next_page if next_page else url_for('main.homepage'))
+        else:
+            print(user)
+            
+    print(form.errors)
     return render_template('login.html', form=form)
 
 
@@ -93,6 +98,10 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.homepage'))
+
+
+
+main = Blueprint("main", __name__)
 
 
 
@@ -211,3 +220,14 @@ def add_to_shopping_list(item_id):
 
     flash('Item added.')
     return redirect(url_for('main.item_detail', item_id=item.id))
+
+
+
+
+
+
+    
+       
+      
+
+
